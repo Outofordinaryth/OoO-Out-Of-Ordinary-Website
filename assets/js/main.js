@@ -293,6 +293,18 @@
     build();
   });
 
+  /* ---------- Home hero: the bridge drifts slower than the page ---------- */
+  const bridge = document.querySelector(".hero__bridge");
+  if (bridge && !reduceMotion) {
+    let ticking = false;
+    const drift = () => {
+      ticking = false;
+      const y = Math.min(window.scrollY, window.innerHeight * 1.2);
+      bridge.style.setProperty("--hero-shift", `${(y * 0.14).toFixed(1)}px`);
+    };
+    window.addEventListener("scroll", () => { if (!ticking) { ticking = true; requestAnimationFrame(drift); } }, { passive: true });
+  }
+
   /* ---------- Footer year ---------- */
   document.querySelectorAll("[data-year]").forEach((el) => (el.textContent = new Date().getFullYear()));
 })();

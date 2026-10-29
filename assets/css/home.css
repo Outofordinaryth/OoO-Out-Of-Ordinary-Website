@@ -1,13 +1,27 @@
 /* 01 — Home */
 
-/* ---------- Hero ---------- */
-.hero { height: 779px; }
-.hero__photo { position: absolute; left: 0; top: 162px; width: 100%; height: 617px; object-fit: cover; }
-.hero__content { position: relative; height: 100%; }
-.hero__left { position: absolute; left: var(--gutter); top: 470px; display: flex; flex-direction: column; gap: 16px; }
-.hero__lede { width: 300px; }
-.hero__cta { position: absolute; right: var(--gutter); top: 520px; width: 254px; display: flex; flex-direction: column; gap: 12px; }
-.hero__buttons { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; padding-top: 12px; }
+/* ---------- Hero ----------
+   The bridge spans the top; its arch opening (≈ x 30–70 %, from y 43 % down)
+   frames the headline. --bw is the rendered bridge width. */
+.hero { --bw: min(100vw, 1680px); padding-top: 104px; text-align: center; }
+.hero__stage { position: relative; width: var(--bw); margin-inline: auto; }
+.hero__bridge {
+  display: block; width: 100%; height: auto; max-width: none;
+  animation: bridge-rise 1.6s var(--ease-expo) both;
+  translate: 0 var(--hero-shift, 0px); will-change: translate;
+  -webkit-mask-image: linear-gradient(180deg, #000 86%, transparent 100%); mask-image: linear-gradient(180deg, #000 86%, transparent 100%);
+}
+@keyframes bridge-rise { from { opacity: 0; transform: translateY(70px) scale(.985); } }
+.hero__copy {
+  position: absolute; left: 50%; bottom: calc(var(--bw) * -.035); translate: -50% 0;
+  width: calc(var(--bw) * .38);
+  display: flex; flex-direction: column; align-items: center; gap: clamp(14px, 1.4vw, 22px);
+}
+.hero__title { font: 400 calc(var(--bw) * .061)/.98 var(--f-serif); color: var(--wine); letter-spacing: -.01em; }
+.hero__below { display: flex; flex-direction: column; align-items: center; gap: 32px; padding-top: calc(var(--bw) * .055); padding-bottom: 72px; position: relative; }
+.hero__lede { max-width: 30ch; }
+.hero__buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; }
+.hero__corners { position: absolute; left: var(--gutter); right: var(--gutter); bottom: 28px; display: flex; justify-content: space-between; pointer-events: none; }
 
 /* ---------- Client logos ---------- */
 .clients { display: flex; flex-direction: column; align-items: center; gap: 28px; padding: 56px 0; border-bottom: 1px solid var(--line); }
@@ -109,7 +123,6 @@
    Responsive
    ========================================================================== */
 @media (max-width: 1200px) {
-  .hero__cta { top: auto; bottom: 64px; }
   .wwd__card--r1, .wwd__card--r2 { left: auto; right: 6%; }
   .wwd__card--l1, .wwd__card--l2 { left: 6%; }
   .showcase__bottom { grid-template-columns: 1fr auto; row-gap: 32px; }
@@ -117,18 +130,6 @@
 }
 
 @media (max-width: 980px) {
-  /* Hero: stacked */
-  .hero { height: auto; padding-top: 128px; }
-  .hero__photo { position: relative; top: 0; height: 56vw; min-height: 300px; margin-top: 32px; }
-  .hero__content { position: static; height: auto; }
-  .hero__left { position: static; }
-  .hero__cta { position: static; width: auto; padding: 32px 0 24px; }
-  .hero__cta .paper { color: var(--ink); }
-  .hero__buttons { flex-direction: row; flex-wrap: wrap; }
-  .hero .btn--glass { --btn-bg: var(--surface); --btn-fg: var(--ink); --btn-shadow: var(--neu-raised-sm); --btn-shadow-hover: var(--neu-sunken); --btn-shadow-press: var(--neu-sunken-deep); border: 0; padding: 16px 22px 16px 28px; backdrop-filter: none; }
-  .hero .btn--glass:hover, .hero .btn--glass:active { background: var(--surface); }
-  .hero .btn--light { box-shadow: var(--neu-raised-sm); }
-  .hero__lede { width: auto; max-width: 340px; }
 
   .who { padding: 96px 0; }
   .who__inner { gap: 96px; }
@@ -154,7 +155,10 @@
 }
 
 @media (max-width: 680px) {
-  .hero__photo { height: 80vw; min-height: 0; }
+  .hero { --bw: 175vw; padding-top: 88px; }
+  .hero__stage { margin-left: calc((100vw - var(--bw)) / 2); }
+  .hero__copy { width: calc(var(--bw) * .4); }
+  .hero__corners { position: static; flex-direction: column; align-items: center; gap: 6px; margin-top: 8px; }
   .carousel__stage { margin-inline: calc(var(--gutter) * -1); aspect-ratio: 390 / 420; }
   .carousel__card[data-slot="0"]  { left: 15%; width: 70%; }
   .carousel__card[data-slot="-1"] { left: -48%; width: 60%; }
