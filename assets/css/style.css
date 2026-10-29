@@ -252,7 +252,6 @@ html { scroll-padding-top: 96px; }
 /* ---------- Marquee ---------- */
 .marquee { position: relative; overflow: hidden; height: 56px; width: 100%; }
 .marquee__track { display: flex; width: max-content; height: 100%; animation: marquee 32s linear infinite; }
-.marquee:hover .marquee__track { animation-play-state: paused; }
 .marquee__group { display: flex; align-items: center; gap: 120px; padding-right: 120px; flex: none; }
 .marquee__group img { flex: none; transition: transform .3s var(--ease-out); }
 .marquee__group img:hover { transform: scale(1.06); }
