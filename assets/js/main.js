@@ -4,6 +4,19 @@
   doc.classList.add("js");
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+  /* ---------- Every page opens at the top ----------
+     Browsers (and embedded previews) may restore the previous scroll offset when
+     moving between pages; unless a #section link was followed, start at the top. */
+  if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+  const toTop = () => { if (!location.hash) window.scrollTo({ top: 0, left: 0, behavior: "instant" }); };
+  toTop();
+  let userMoved = false;
+  ["wheel", "touchstart", "keydown", "pointerdown"].forEach((t) =>
+    window.addEventListener(t, () => (userMoved = true), { once: true, passive: true })
+  );
+  window.addEventListener("load", () => { if (!userMoved) toTop(); });
+  window.addEventListener("pageshow", (e) => { if (e.persisted) toTop(); });
+
   /* ---------- Sticky nav: frosted bar once the page leaves the top ---------- */
   const navEl = document.querySelector(".nav");
   if (navEl) {
