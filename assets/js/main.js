@@ -19,8 +19,10 @@
     });
   }
 
-  /* ---------- Word stagger: split text into .w spans ---------- */
-  document.querySelectorAll(".stagger").forEach((el) => {
+  /* ---------- Split text into word spans ----------
+     .stagger       → each word rises out of its own masked slot (.wm > .w)
+     .scroll-words  → plain word spans lit up by scroll position (see below) */
+  const splitWords = (el, masked) => {
     let i = 0;
     const walk = (node) => {
       [...node.childNodes].forEach((child) => {
@@ -29,11 +31,16 @@
           child.textContent.split(/(\s+)/).forEach((part) => {
             if (!part) return;
             if (/^\s+$/.test(part)) return frag.append(part);
-            const span = document.createElement("span");
-            span.className = "w";
-            span.style.setProperty("--i", i++);
-            span.textContent = part;
-            frag.append(span);
+            const w = document.createElement("span");
+            w.className = "w";
+            w.style.setProperty("--i", i++);
+            w.textContent = part;
+            if (masked) {
+              const m = document.createElement("span");
+              m.className = "wm";
+              m.append(w);
+              frag.append(m);
+            } else frag.append(w);
           });
           child.replaceWith(frag);
         } else if (child.nodeType === 1 && child.tagName !== "BR") {
@@ -42,6 +49,61 @@
       });
     };
     walk(el);
+  };
+  document.querySelectorAll(".stagger").forEach((el) => splitWords(el, true));
+
+  /* ---------- Scroll-lit text: words brighten as the reader scrolls past ---------- */
+  const litEls = [...document.querySelectorAll(".scroll-words")];
+  litEls.forEach((el) => splitWords(el, false));
+  if (litEls.length && !reduceMotion) {
+    const FROM = 0.16;
+    const update = () => {
+      const vh = window.innerHeight;
+      litEls.forEach((el) => {
+        const r = el.getBoundingClientRect();
+        // 0 when the block's top reaches 85% of the viewport, 1 when its bottom reaches 45%
+        const p = Math.min(1, Math.max(0, (0.85 * vh - r.top) / (0.4 * vh + r.height)));
+        const words = el._words || (el._words = [...el.querySelectorAll(".w")]);
+        const n = words.length;
+        words.forEach((w, i) => {
+          const a = i / n - 0.08, b = i / n + 0.04;
+          const t = Math.min(1, Math.max(0, (p - a) / (b - a)));
+          w.style.opacity = (FROM + (1 - FROM) * t).toFixed(3);
+        });
+      });
+    };
+    let ticking = false;
+    const onScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(() => { ticking = false; update(); }); } };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    update();
+  }
+
+  /* ---------- Stacking step cards (desktop) ----------
+     Each step pins under the previous one; earlier cards shrink slightly. */
+  const stackMq = window.matchMedia("(min-width: 981px)");
+  document.querySelectorAll(".stack").forEach((stack) => {
+    const items = [...stack.querySelectorAll(".stack__list > li")];
+    const n = items.length;
+    items.forEach((li, i) => li.style.setProperty("--si", i));
+    if (reduceMotion) return;
+    let ticking = false;
+    const update = () => {
+      ticking = false;
+      if (!stackMq.matches) { items.forEach((li) => (li.style.scale = "")); return; }
+      items.forEach((li, i) => {
+        const next = items[i + 1];
+        if (!next) return (li.style.scale = "");
+        // how far the following card has travelled over this one (0 → 1)
+        const gap = next.getBoundingClientRect().top - li.getBoundingClientRect().top;
+        const t = Math.min(1, Math.max(0, 1 - gap / li.offsetHeight));
+        li.style.scale = (1 - 0.04 * (n - 1 - i) * t).toFixed(4);
+      });
+    };
+    const onScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    update();
   });
 
   /* ---------- Scroll reveal: play once per element ---------- */

@@ -35,6 +35,7 @@
 
   --ease-out: cubic-bezier(.22, .61, .36, 1);
   --ease-soft: cubic-bezier(.5, 0, .5, 1);
+  --ease-expo: cubic-bezier(.16, 1, .3, 1);
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -61,7 +62,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 
 /* ---------- Layout ---------- */
 .container { width: 100%; max-width: var(--max); margin-inline: auto; padding-inline: var(--gutter); }
-.section { position: relative; overflow: hidden; }
+.section { position: relative; overflow: hidden; overflow: clip; }
 
 /* ---------- Type (Figma text styles) ---------- */
 .label { font: 400 12px/1.3 var(--f-sans); letter-spacing: .08em; text-transform: uppercase; }
@@ -285,13 +286,41 @@ ul { margin: 0; padding: 0; list-style: none; }
 .js [data-reveal].is-in { opacity: 1; transform: none; }
 .js [data-reveal="drop"].is-in { transform: rotate(var(--rot, 0deg)); }
 
-/* Hero headline: words rise one by one (TextStagger in Figma) */
-.js .stagger .w { display: inline-block; opacity: 0; transform: translateY(.5em); transition: opacity .7s var(--ease-out), transform .7s var(--ease-out); transition-delay: calc(var(--i) * 60ms + var(--d, 0s)); }
-.js .stagger.is-in .w { opacity: 1; transform: none; }
+/* Headlines: each word rises out of its own masked slot (editorial pull-up) */
+.stagger .wm { display: inline-block; overflow: hidden; vertical-align: top; padding: .08em .06em .18em; margin: -.08em -.06em -.18em; }
+.stagger .w { display: inline-block; }
+.js .stagger .w { transform: translateY(112%); transition: transform 1.15s var(--ease-expo); transition-delay: calc(var(--i) * 70ms + var(--d, 0s)); }
+.js .stagger.is-in .w { transform: none; }
+
+/* Scroll-lit text: words start dim and light up with scroll (driven by main.js) */
+.scroll-words .w { transition: opacity .25s linear; }
+.js .scroll-words .w { opacity: .16; }
+
+/* Stacking step cards — desktop only; mobile keeps the page's own layout */
+@media (min-width: 981px) {
+  .section .container.stack { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 64px; align-items: start; }
+  .stack .stack__head { position: sticky; top: 140px; margin-bottom: 0; }
+  .stack .stack__list { display: flex; flex-direction: column; gap: 0; }
+  .stack .stack__list > li {
+    position: sticky; top: calc(130px + var(--si, 0) * 22px);
+    flex: none; min-height: 240px; margin-bottom: 22vh; padding: 40px 44px;
+    border: 0; border-radius: 28px; background: var(--surface); box-shadow: var(--neu-raised);
+    transform-origin: 50% 0;
+  }
+  .stack .stack__list > li:last-child { margin-bottom: 0; }
+  .stack .stack__list > li .h3 { font-size: clamp(28px, 2.5vw, 36px); }
+}
+
+/* Paper grain over the whole page — barely there, kills the flat digital look */
+body::after {
+  content: ""; position: fixed; inset: 0; z-index: 90; pointer-events: none; opacity: .45;
+  background-size: 200px 200px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
+}
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .js [data-reveal], .js .stagger .w { opacity: 1 !important; transform: none !important; transition: none !important; }
+  .js [data-reveal], .js .stagger .w, .js .scroll-words .w { opacity: 1 !important; transform: none !important; transition: none !important; }
   .marquee__track { animation: none; }
 }
 
