@@ -264,6 +264,35 @@
     });
   });
 
+  /* ---------- Marquee: always wide enough to never show a gap ----------
+     The track is two identical halves scrolled by -50%. Each half repeats the
+     logo group until it is at least as wide as the viewport, so wide screens
+     never see the end of the strip. Speed stays constant (~40px/s). */
+  document.querySelectorAll(".marquee").forEach((marquee) => {
+    const track = marquee.querySelector(".marquee__track");
+    const source = track && track.querySelector(".marquee__group");
+    if (!source) return;
+    const build = () => {
+      const groupW = source.getBoundingClientRect().width;
+      if (!groupW) return;
+      const perHalf = Math.max(1, Math.ceil(marquee.clientWidth / groupW));
+      if (track.children.length !== perHalf * 2) {
+        track.replaceChildren(source);
+        for (let i = 1; i < perHalf * 2; i++) {
+          const copy = source.cloneNode(true);
+          copy.setAttribute("aria-hidden", "true");
+          copy.querySelectorAll("img").forEach((img) => (img.alt = ""));
+          track.append(copy);
+        }
+      }
+      track.style.animationDuration = `${(groupW * perHalf) / 40}s`;
+    };
+    let t;
+    window.addEventListener("resize", () => { clearTimeout(t); t = setTimeout(build, 150); });
+    if (document.readyState === "complete") build(); else window.addEventListener("load", build);
+    build();
+  });
+
   /* ---------- Footer year ---------- */
   document.querySelectorAll("[data-year]").forEach((el) => (el.textContent = new Date().getFullYear()));
 })();
