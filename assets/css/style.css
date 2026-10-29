@@ -147,9 +147,21 @@ ul { margin: 0; padding: 0; list-style: none; }
 
 /* ---------- Nav ---------- */
 .nav {
-  position: absolute; inset: 0 0 auto 0; z-index: 50;
-  height: 88px;
+  position: fixed; inset: 0 0 auto 0; z-index: 50;
+  height: calc(88px + env(safe-area-inset-top, 0px)); padding-top: env(safe-area-inset-top, 0px);
+  transition: height .35s var(--ease-out), background-color .35s var(--ease-out), box-shadow .35s var(--ease-out);
 }
+/* Sticky nav: once the page scrolls, it gets a frosted paper bar so it reads over any section */
+.nav.is-scrolled {
+  height: calc(72px + env(safe-area-inset-top, 0px));
+  background: rgba(248, 247, 246, .92);
+  -webkit-backdrop-filter: blur(14px) saturate(1.15); backdrop-filter: blur(14px) saturate(1.15);
+  box-shadow: 0 1px 0 rgba(27, 19, 19, .06), 0 10px 30px rgba(27, 19, 19, .05);
+}
+.nav.is-scrolled .nav__links { box-shadow: -5px -5px 12px #fff, 5px 5px 12px rgba(110, 87, 79, .14); }
+.nav--light.is-scrolled .nav__logo .logo-dark { display: block; }
+.nav--light.is-scrolled .nav__logo .logo-light { display: none; }
+html { scroll-padding-top: 96px; }
 .nav__inner { height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
 .nav__logo img { width: 116px; height: auto; }
 .nav__links {
@@ -175,7 +187,7 @@ ul { margin: 0; padding: 0; list-style: none; }
   .nav__cta { display: none; }
 }
 @media (max-width: 760px) {
-  .nav { height: 72px; }
+  .nav { height: calc(72px + env(safe-area-inset-top, 0px)); }
   .nav__links, .nav__cta { display: none; }
   .nav__logo img { width: 96px; }
   .nav__toggle {

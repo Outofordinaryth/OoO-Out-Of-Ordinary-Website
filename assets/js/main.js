@@ -4,6 +4,14 @@
   doc.classList.add("js");
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+  /* ---------- Sticky nav: frosted bar once the page leaves the top ---------- */
+  const navEl = document.querySelector(".nav");
+  if (navEl) {
+    const setNav = () => navEl.classList.toggle("is-scrolled", window.scrollY > 24);
+    window.addEventListener("scroll", setNav, { passive: true });
+    setNav();
+  }
+
   /* ---------- Mobile menu ---------- */
   const toggle = document.querySelector(".nav__toggle");
   if (toggle) {
