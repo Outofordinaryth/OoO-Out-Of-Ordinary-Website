@@ -1,0 +1,84 @@
+/* 10 — Contact */
+
+.ct { padding: 112px 0 120px; }
+.ct__split { display: flex; align-items: stretch; gap: 24px; }
+
+/* ---------- Info panel ---------- */
+.ct-info {
+  position: relative; overflow: hidden; flex: none;
+  width: 47.06%; /* 640 / 1360 */ min-height: 880px;
+  padding: 56px; border-radius: 32px;
+  background: var(--wine); color: var(--paper);
+  display: flex; flex-direction: column; align-items: flex-start;
+}
+.ct-info__ribbons { position: absolute; left: 0; bottom: 0; width: 100%; height: 380px; pointer-events: none; }
+.ct-info__logo { position: relative; width: 116px; }
+.ct-info__label { position: relative; margin-top: 60px; }
+.ct-info__title { position: relative; margin-top: 15px; line-height: 1; }
+.ct-info__details { position: relative; margin: 52px 0 0; display: flex; flex-direction: column; gap: 18px; }
+.ct-info__details > div { display: flex; align-items: baseline; gap: 24px; }
+.ct-info__details dt { flex: none; width: 80px; }
+.ct-info__details dd { margin: 0; font-size: 16px; line-height: 1.6; }
+.ct-info__details a { transition: color .2s; }
+.ct-info__details a:hover { color: var(--rose); }
+
+/* ---------- Form ---------- */
+.ct-form {
+  flex: 1; min-width: 0; min-height: 880px;
+  padding: 56px; border-radius: 32px; background: var(--paper);
+  display: flex; flex-direction: column; gap: 36px;
+}
+.ct-form__title { font: 300 clamp(36px, 3.34vw, 48px)/1.1 var(--f-sans); letter-spacing: -.01em; }
+.ct-form__row { display: flex; gap: 24px; }
+.ct-form__row .field { flex: 1; min-width: 0; }
+
+.field { display: flex; flex-direction: column; gap: 10px; margin: 0; padding: 0; border: 0; min-width: 0; }
+.field input, .field textarea {
+  width: 100%; padding: 12px 0; border: 0; border-bottom: 1px solid var(--ink); border-radius: 0;
+  background: transparent; color: var(--ink);
+  font: 300 16px/1.6 var(--f-sans);
+  outline: none; transition: border-color .2s var(--ease-out), box-shadow .2s var(--ease-out);
+}
+.field input { height: 44px; }
+.field textarea { height: 110px; resize: vertical; }
+.field input::placeholder, .field textarea::placeholder { color: var(--rose); opacity: 1; }
+.field input:focus, .field textarea:focus { border-bottom-color: var(--burgundy); box-shadow: 0 1px 0 var(--burgundy); }
+.field input:user-invalid { border-bottom-color: #a33; }
+
+.ct-form__interest { gap: 14px; }
+.ct-form__interest legend { padding: 0; margin-bottom: 14px; }
+.chips { display: flex; flex-wrap: wrap; gap: 10px; }
+.chip {
+  position: relative; cursor: pointer;
+  padding: 12px 20px; border-radius: 100px; border: 1px solid transparent;
+  background: var(--surface); box-shadow: var(--neu-raised-sm);
+  font: 400 12px/1.3 var(--f-sans); letter-spacing: .08em; text-transform: uppercase; color: var(--ink);
+  transition: box-shadow .22s var(--ease-out), background-color .22s var(--ease-out), color .22s var(--ease-out);
+}
+.chip input { position: absolute; opacity: 0; width: 1px; height: 1px; pointer-events: none; }
+.chip:hover { box-shadow: var(--neu-sunken); }
+.chip:has(input:checked) { background: var(--ink); border-color: var(--ink); color: var(--paper); box-shadow: none; }
+.chip:has(input:focus-visible) { outline: 2px solid var(--burgundy); outline-offset: 3px; }
+
+.ct-form__submit { display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1200px) {
+  .ct-info, .ct-form { padding: 44px; }
+}
+@media (max-width: 980px) {
+  .ct { padding: 96px 0 96px; }
+  .ct__split { flex-direction: column; }
+  .ct-info { width: 100%; min-height: 0; padding-bottom: 260px; }
+  .ct-info__ribbons { height: 240px; }
+  .ct-form { min-height: 0; padding: 40px 0 0; }
+}
+@media (max-width: 560px) {
+  .ct-info { padding: 36px 24px 200px; border-radius: 24px; }
+  .ct-info__ribbons { height: 180px; }
+  .ct-info__label { margin-top: 44px; }
+  .ct-info__title { font-size: 52px; }
+  .ct-info__details > div { flex-direction: column; gap: 4px; }
+  .ct-form__row { flex-direction: column; gap: 36px; }
+  .ct-form__submit .btn { width: 100%; justify-content: center; }
+}

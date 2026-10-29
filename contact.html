@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Contact — OoO · Out of Ordinary</title>
+  <meta name="description" content="Start a project with OoO — Out of Ordinary. Tell us about your brand and we'll reply within 2 business days.">
+  <link rel="icon" type="image/png" href="assets/img/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@300;400&family=Italiana&family=Mrs+Saint+Delafield&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/contact.css">
+</head>
+<body id="top">
+
+  <!-- NAV -->
+  <header class="nav">
+    <div class="container nav__inner">
+      <a class="nav__logo" href="index.html" aria-label="OoO — Out of Ordinary, home">
+        <img class="logo-dark" src="assets/img/logo-mark.png" alt="OoO" width="116" height="34">
+      </a>
+      <nav class="nav__links" aria-label="Main">
+        <a href="work.html">Work</a>
+        <a href="services.html">Services</a>
+        <a href="about.html">About</a>
+        <a href="faq.html">FAQ</a>
+        <a href="contact.html" aria-current="page">Contact</a>
+      </nav>
+      <a class="btn btn--primary nav__cta" href="contact.html">Start a project
+        <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8H13M9 12L13 8L9 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <button class="nav__toggle" type="button" aria-label="Menu" aria-expanded="false" aria-controls="mobile-menu"><span></span></button>
+    </div>
+  </header>
+  <div class="mobile-menu" id="mobile-menu">
+    <a class="mobile-menu__link" href="work.html">Work</a>
+    <a class="mobile-menu__link" href="services.html">Services</a>
+    <a class="mobile-menu__link" href="about.html">About</a>
+    <a class="mobile-menu__link" href="faq.html">FAQ</a>
+    <a class="mobile-menu__link" href="contact.html" aria-current="page">Contact</a>
+    <a class="btn btn--primary" href="contact.html">Start a project
+      <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8H13M9 12L13 8L9 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+  </div>
+
+    <main>
+    <section class="section ct">
+      <div class="container ct__split">
+        <!-- Info panel -->
+        <aside class="ct-info" data-reveal="left">
+          <img class="ct-info__ribbons" src="assets/img/contact/ribbons.svg" alt="" aria-hidden="true" width="640" height="380">
+          <img class="ct-info__logo" src="assets/img/logo-mark-light.png" alt="OoO" width="116" height="34">
+          <p class="label label--rose ct-info__label">Contact</p>
+          <h1 class="serif-xl paper ct-info__title stagger" style="--d:.3s">Let's find<br>your next<br>Z-curve.</h1>
+          <dl class="ct-info__details">
+            <div><dt class="label label--rose">Email</dt><dd><a href="mailto:hello@outofordinary.com">hello@outofordinary.com</a></dd></div>
+            <div><dt class="label label--rose">Social</dt><dd><a href="#" rel="noopener">Instagram</a> · <a href="#" rel="noopener">TikTok</a> · <a href="#" rel="noopener">Facebook</a> · <a href="#" rel="noopener">LinkedIn</a></dd></div>
+            <div><dt class="label label--rose">Based in</dt><dd>Thailand</dd></div>
+          </dl>
+        </aside>
+
+        <!-- Form -->
+        <form class="ct-form" data-contact action="" method="post" data-reveal="up" style="--d:.2s">
+          <h2 class="ct-form__title">Start a project</h2>
+          <div class="ct-form__row">
+            <label class="field">
+              <span class="label label--muted">Name *</span>
+              <input type="text" name="name" placeholder="Your name" autocomplete="name" required>
+            </label>
+            <label class="field">
+              <span class="label label--muted">Email *</span>
+              <input type="email" name="email" placeholder="you@brand.com" autocomplete="email" required>
+            </label>
+          </div>
+          <label class="field">
+            <span class="label label--muted">Brand / company</span>
+            <input type="text" name="company" placeholder="Brand name" autocomplete="organization">
+          </label>
+          <fieldset class="field ct-form__interest">
+            <legend class="label label--muted">Interested in</legend>
+            <div class="chips">
+              <label class="chip"><input type="radio" name="interest" value="Branding / Re-Brand" checked><span>Branding / Re-Brand</span></label>
+              <label class="chip"><input type="radio" name="interest" value="Strategy Planner"><span>Strategy Planner</span></label>
+              <label class="chip"><input type="radio" name="interest" value="Both"><span>Both</span></label>
+              <label class="chip"><input type="radio" name="interest" value="Not sure yet"><span>Not sure yet</span></label>
+            </div>
+          </fieldset>
+          <label class="field">
+            <span class="label label--muted">Tell us about your brand</span>
+            <textarea name="message" rows="3" placeholder="What are you building, and what's next?"></textarea>
+          </label>
+          <div class="ct-form__submit">
+            <p class="body-s muted">We reply within 2 business days.</p>
+            <button class="btn btn--primary" type="submit">Send message
+              <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8H13M9 12L13 8L9 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+          </div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <div class="toast" role="status" aria-live="polite">
+    <svg viewBox="0 0 16 16" width="16" height="16" fill="none" aria-hidden="true"><path d="M3 8.5L6.5 12L13 4.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <span data-toast-text>Message sent</span>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer__top">
+      <div class="footer__brand">
+        <img src="assets/img/logo-mark-light.png" alt="OoO" width="116" height="34">
+        <p class="serif-sm">Find your next Z-curve.</p>
+        <p class="script rose">Design by OoO · Out of Ordinary</p>
+      </div>
+      <div class="footer__col">
+        <p class="label label--rose">Explore</p>
+        <a href="work.html">Work</a>
+        <a href="services.html">Services</a>
+        <a href="about.html">About</a>
+        <a href="faq.html">FAQ</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="footer__col">
+        <p class="label label--rose">Contact</p>
+        <a href="mailto:hello@outofordinary.com">hello@outofordinary.com</a>
+        <p>Thailand</p>
+      </div>
+      <div class="footer__col">
+        <p class="label label--rose">Follow</p>
+        <a href="#" rel="noopener">Instagram</a>
+        <a href="#" rel="noopener">TikTok</a>
+        <a href="#" rel="noopener">Facebook</a>
+        <a href="#" rel="noopener">LinkedIn</a>
+      </div>
+    </div>
+    <div class="footer__bar">
+      <div class="container">
+        <p>© <span data-year>2026</span> OoO — Out of Ordinary. All rights reserved.</p>
+        <a class="label" href="#top">Back to top ↑</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js" defer></script>
+</body>
+</html>
