@@ -1,0 +1,125 @@
+/* 07 — Case Study: Made In Heaven */
+
+.case { padding-top: 88px; }
+.case-serif { font: 400 clamp(48px, 6.67vw, 96px)/1 var(--f-serif); color: var(--wine); }
+
+/* ---------- Hero ---------- */
+.case-hero { height: 760px; background: var(--ink); display: grid; place-items: center; }
+.case-hero__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 45%; }
+.case-hero__overlay { position: absolute; inset: 0; background: rgba(27, 19, 19, .3); }
+.case-hero__content { position: relative; display: flex; flex-direction: column; align-items: center; gap: 24px; padding: 0 var(--gutter); text-align: center; }
+.case-hero__title { font: 300 clamp(52px, 8.33vw, 120px)/1 var(--f-sans); letter-spacing: -.02em; color: var(--paper); }
+
+.mih-stars { display: flex; align-items: center; gap: 6px; }
+.mih-stars img { flex: none; }
+
+/* ---------- Meta ---------- */
+.case-meta { padding: 48px 0; }
+.case-meta__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; margin-block: 0; }
+.case-meta__item { display: flex; flex-direction: column; gap: 10px; padding-top: 20px; border-top: 1px solid var(--ink); }
+.case-meta__item dd { margin: 0; font-size: 20px; line-height: 1.55; }
+
+/* ---------- The idea ---------- */
+.case-idea { padding: 120px 0; }
+.case-idea__inner { display: flex; gap: 80px; }
+.case-idea__label { width: 320px; flex: none; }
+.case-idea__body { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 32px; }
+.case-idea__text { max-width: 700px; }
+
+/* ---------- Brand system ---------- */
+.case-system { padding: 120px 0; }
+.case-system__inner { display: flex; flex-direction: column; gap: 96px; }
+.case-system__head { display: flex; flex-direction: column; gap: 16px; }
+.case-system__title { max-width: 900px; }
+
+.logo-tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.logo-tile {
+  height: 300px; padding: 48px; border-radius: 24px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px;
+  transition: translate .45s var(--ease-out), box-shadow .45s var(--ease-out);
+}
+.logo-tile:hover { translate: 0 -6px; box-shadow: 0 22px 40px rgba(27, 19, 19, .14); }
+.logo-tile__word { font: 400 28px/1.25 var(--f-sans); white-space: nowrap; }
+.logo-tile--primary { background: #fff; color: #030303; }
+.logo-tile--reversed { background: #030303; color: #fff; }
+.logo-tile--accent { background: #fff; color: #8e1616; }
+
+.swatches { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.swatch { display: flex; flex-direction: column; gap: 14px; }
+.swatch__chip { display: block; height: 160px; border-radius: 20px; background: var(--sw); transition: transform .4s var(--ease-out); }
+.swatch:hover .swatch__chip { transform: scaleY(1.05); }
+.swatch__label { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+
+.case-pattern { height: 336px; border-radius: 24px; overflow: hidden; background: #030303; }
+.case-pattern img { width: 1328px; max-width: none; height: 336px; }
+
+.case-type {
+  display: flex; align-items: center; gap: 56px; padding: 56px; border-radius: 24px;
+  background: var(--paper);
+}
+.case-type__l { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 14px; }
+.case-type__name { white-space: nowrap; }
+.case-type__glyphs { width: 520px; flex: none; font-size: 28px; }
+
+/* ---------- Gallery (placeholders) ---------- */
+.case-gallery { padding: 120px 0; }
+.case-gallery__inner { display: flex; flex-direction: column; gap: 24px; }
+.case-gallery__row { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.case-gallery__ph { height: 560px; border-radius: 24px; background: var(--cocoa); }
+.case-gallery__ph--rose { background: rgba(216, 188, 182, .5); }
+.case-gallery__ph--wide { height: 640px; }
+
+/* ---------- Next project ---------- */
+.case-next { border-top: 1px solid var(--ink); padding: 72px 0; }
+.case-next__inner { display: flex; align-items: center; justify-content: space-between; gap: 32px; }
+.case-next .label { margin-bottom: 12px; }
+.case-next__title { font: 300 clamp(36px, 4.45vw, 64px)/1 var(--f-sans); letter-spacing: -.02em; }
+
+/* ---------- CTA ---------- */
+.case-cta { padding: 40px 0 120px; }
+.case-cta__card {
+  display: flex; flex-direction: column; align-items: center; gap: 28px; text-align: center;
+  padding: 80px; border-radius: 32px; background: var(--wine);
+}
+.case-cta__card .case-serif { color: var(--paper); }
+.case-cta__card .btn { margin-top: 8px; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1200px) {
+  .case-idea__label { width: 200px; }
+  .case-type__glyphs { width: 400px; }
+}
+
+@media (max-width: 980px) {
+  .case { padding-top: 72px; }
+  .case-hero { height: 600px; }
+  .case-meta__grid { grid-template-columns: 1fr 1fr; }
+  .case-idea, .case-system, .case-gallery { padding: 96px 0; }
+  .case-idea__inner { flex-direction: column; gap: 24px; }
+  .case-idea__label { width: auto; }
+  .case-system__inner { gap: 64px; }
+  .logo-tiles { grid-template-columns: 1fr; }
+  .logo-tile { height: 240px; }
+  .case-type { flex-direction: column; align-items: flex-start; gap: 32px; padding: 40px; }
+  .case-type__glyphs { width: auto; }
+  .case-gallery__ph { height: 420px; }
+  .case-gallery__ph--wide { height: 480px; }
+  .case-next__inner { flex-direction: column; align-items: flex-start; }
+  .case-cta__card { padding: 64px 32px; }
+}
+
+@media (max-width: 680px) {
+  .case-hero { height: 520px; }
+  .case-meta__grid { grid-template-columns: 1fr; gap: 24px; }
+  .case-meta__item dd { font-size: 18px; }
+  .swatches { grid-template-columns: 1fr; }
+  .swatch__chip { height: 110px; }
+  .case-pattern { height: 220px; }
+  .case-pattern img { height: 220px; width: 870px; }
+  .case-type { padding: 32px 24px; }
+  .case-type__name { white-space: normal; font-size: 40px; }
+  .case-type__glyphs { font-size: 22px; }
+  .case-gallery__row { grid-template-columns: 1fr; }
+  .case-gallery__ph, .case-gallery__ph--wide { height: 320px; }
+  .case-cta__card { padding: 56px 20px; border-radius: 24px; }
+}
