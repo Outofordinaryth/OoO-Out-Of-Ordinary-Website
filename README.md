@@ -10,7 +10,7 @@ Static site (HTML / CSS / vanilla JS, no build step) built from the Figma design
 | Package: Branding / Re-Brand | `package-branding.html` |
 | Package: Strategy Planner | `package-strategy.html` |
 | Package: Business Development | `package-business-development.html` |
-| Brand Showcase | `work.html` |
+| Brand Showcase | `showcase.html` |
 | Case Study: Made In Heaven | `case-made-in-heaven.html` |
 | About | `about.html` |
 | FAQ | `faq.html` |
