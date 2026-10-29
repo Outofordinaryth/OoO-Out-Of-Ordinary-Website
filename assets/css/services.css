@@ -1,7 +1,7 @@
 /* 02 — Services */
 
 /* ---------- Nav over the dark hero ---------- */
-.nav--light .nav__links { box-shadow: -7px -7px 16px rgba(255, 255, 255, .5), 7px 7px 16px rgba(0, 0, 0, .25); }
+.nav--light .nav__links { box-shadow: 0 8px 24px rgba(0, 0, 0, .28); }
 
 /* ---------- Page header (zip leather) ---------- */
 .s-hero { min-height: 1000px; color: var(--paper); background: #2a0d0e; }
