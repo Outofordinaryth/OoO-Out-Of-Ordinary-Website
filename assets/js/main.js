@@ -7,7 +7,17 @@
   /* ---------- Sticky nav: frosted bar once the page leaves the top ---------- */
   const navEl = document.querySelector(".nav");
   if (navEl) {
-    const setNav = () => navEl.classList.toggle("is-scrolled", window.scrollY > 24);
+    // sections the bar can sit over that are dark (photo or wine), so the logo flips to light
+    const darkZones = [...document.querySelectorAll(".who, .cta-torn, .s-hero, .ab-true, .case-hero, .ct-info, .footer, [data-nav-dark]")];
+    const setNav = () => {
+      navEl.classList.toggle("is-scrolled", window.scrollY > 24);
+      const y = navEl.offsetHeight / 2, x = 80;
+      const onDark = darkZones.some((z) => {
+        const r = z.getBoundingClientRect();
+        return r.top <= y && r.bottom >= y && r.left <= x && r.right >= x;
+      });
+      navEl.classList.toggle("is-on-dark", onDark);
+    };
     window.addEventListener("scroll", setNav, { passive: true });
     setNav();
   }
