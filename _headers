@@ -1,0 +1,4 @@
+# Development build: keep search engines out until launch.
+# Remove this rule when the real domain goes live.
+/*
+  X-Robots-Tag: noindex, nofollow
