@@ -248,6 +248,10 @@
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
       if (!form.reportValidity()) return;
+      // spam trap filled in → pretend it worked, send nothing
+      if (form.querySelector('[name="_gotcha"]')?.value) { form.reset(); showToast(); return; }
+      const submit = form.querySelector('[type="submit"]');
+      if (submit) submit.disabled = true;
       const endpoint = form.getAttribute("action");
       // Until a Formspree (or similar) endpoint is set, just confirm locally.
       if (endpoint && endpoint.startsWith("http")) {
@@ -255,10 +259,12 @@
           const res = await fetch(endpoint, { method: "POST", body: new FormData(form), headers: { Accept: "application/json" } });
           if (!res.ok) throw new Error();
         } catch {
+          if (submit) submit.disabled = false;
           showToast("Something went wrong — please email us directly.");
           return;
         }
       }
+      if (submit) submit.disabled = false;
       form.reset();
       showToast("Message sent — we'll be in touch within 2 working days.");
     });

@@ -82,3 +82,6 @@
   .ct-form__row { flex-direction: column; gap: 36px; }
   .ct-form__submit .btn { width: 100%; justify-content: center; }
 }
+
+/* spam trap: hidden from people, visible to bots */
+.ct-form__trap { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }

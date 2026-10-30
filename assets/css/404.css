@@ -1,0 +1,11 @@
+/* 404 — Page not found */
+.nf { min-height: 100vh; display: flex; flex-direction: column; justify-content: flex-end; padding: 120px 0 96px; text-align: center; }
+.nf__bridge {
+  position: absolute; left: 50%; top: 96px; translate: -50% 0;
+  width: min(1200px, 120vw); max-width: none; height: auto; opacity: .18;
+  -webkit-mask-image: linear-gradient(180deg, #000 60%, transparent 100%); mask-image: linear-gradient(180deg, #000 60%, transparent 100%);
+  pointer-events: none;
+}
+.nf__copy { position: relative; display: flex; flex-direction: column; align-items: center; gap: 24px; }
+.nf__lede { max-width: 34ch; }
+.nf__buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; margin-top: 8px; }

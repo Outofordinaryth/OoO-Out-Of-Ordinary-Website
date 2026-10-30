@@ -76,7 +76,11 @@
         </aside>
 
         <!-- Form -->
+        <!-- Contact form: paste your Formspree endpoint into action="" (e.g. https://formspree.io/f/xxxxxxx).
+             While it is empty the form only shows the confirmation message and sends nothing. -->
         <form class="ct-form" data-contact action="" method="post" data-reveal="up" style="--d:.2s">
+          <input type="hidden" name="_subject" value="New enquiry from the OoO website">
+          <div class="ct-form__trap" aria-hidden="true"><label>Leave this empty <input type="text" name="_gotcha" tabindex="-1" autocomplete="off"></label></div>
           <h2 class="ct-form__title">Start a project</h2>
           <div class="ct-form__row">
             <label class="field">
