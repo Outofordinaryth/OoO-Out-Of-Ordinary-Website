@@ -23,20 +23,73 @@
 .ab-stand__text { flex: 1; min-width: 0; font: 300 clamp(26px, 3.34vw, 48px)/1.1 var(--f-sans); letter-spacing: -.01em; }
 
 /* ---------- Brand values ---------- */
-.ab-values { padding: 140px 0; }
+.ab-values { padding: 140px 0 160px; position: relative; }
+/* Brand values: textured paper postcards scattered across the section.
+   Each card floats gently; on desktop they can be picked up and dragged. */
+.ab-values__mark { position: absolute; left: 50%; top: 52%; translate: -50% -50%; width: min(1100px, 90vw); max-width: none; opacity: .045; pointer-events: none; filter: grayscale(1); }
+.vstage { position: relative; height: 1010px; margin: 24px 0 0; padding: 0; list-style: none; }
+.vcard {
+  --w: clamp(240px, 21vw, 320px);
+  position: absolute; left: min(var(--x), calc(100% - var(--w))); top: var(--y); width: var(--w); z-index: 1;
+  cursor: grab; touch-action: none; user-select: none; -webkit-user-select: none;
+  transition: transform .7s var(--ease-out), opacity .85s var(--ease-out) !important;
+  transition-delay: var(--d, 0s);
+}
+.vcard.is-dragging { cursor: grabbing; transition: none !important; }
+.vcard__in {
+  position: relative; overflow: hidden; aspect-ratio: 3 / 2;
+  display: flex; flex-direction: column; justify-content: space-between; padding: 14px 18px 16px;
+  background: #ebebe4; color: var(--ink);
+  box-shadow: 0 1px 2px rgba(27, 19, 19, .08), 0 16px 34px rgba(27, 19, 19, .14), inset 0 0 40px rgba(110, 104, 92, .18);
+  animation: vfloat var(--f, 8s) ease-in-out infinite alternate;
+  transition: box-shadow .4s var(--ease-out), scale .4s var(--ease-out);
+}
+/* paper grain + worn print */
+.vcard__in::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none; mix-blend-mode: multiply; opacity: .55;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .3  0 0 0 0 .28  0 0 0 0 .25  0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+@keyframes vfloat { from { translate: 0 -5px; } to { translate: 0 6px; } }
+.vcard:hover { z-index: 5; }
+.js .vcard.is-in:hover { transform: rotate(0deg); }
+.vcard:hover .vcard__in { scale: 1.04; box-shadow: 0 2px 4px rgba(27, 19, 19, .08), 0 28px 50px rgba(27, 19, 19, .2), inset 0 0 40px rgba(110, 104, 92, .18); }
+.vcard__mono { position: relative; z-index: 1; font: 400 10px/1.4 "IBM Plex Mono", ui-monospace, monospace; letter-spacing: .14em; text-transform: uppercase; text-align: center; color: rgba(27, 19, 19, .72); }
+.vcard__mono b { font-weight: 500; color: var(--ink); }
+.vcard__desc { text-align: left; letter-spacing: .06em; overflow-wrap: anywhere; }
+.vcard__ghost {
+  position: absolute; left: 50%; top: 46%; translate: -50% -50%;
+  font: 400 clamp(150px, 13vw, 210px)/1 var(--f-script); color: rgba(27, 19, 19, .1);
+  pointer-events: none; filter: blur(.4px);
+}
+.vcard__name { position: relative; z-index: 1; margin-top: auto; font: 400 clamp(34px, 3vw, 46px)/1.05 var(--f-script); color: var(--ink); text-wrap: balance; }
+/* photo cards: halftone black-and-white print */
+.vcard--photo .vcard__in { padding: 0; justify-content: center; background: #e9e9e2; }
+.vcard--photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) contrast(1.15) brightness(1.3); mix-blend-mode: multiply; opacity: .9; }
+.vcard--photo .vcard__in::before {
+  content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none; mix-blend-mode: screen; opacity: .35;
+  background: radial-gradient(circle, transparent 0 1px, #fff 1.4px) 0 0 / 4px 4px;
+}
+.vcard__mono--mid { padding: 4px 8px; font-size: 11px; color: var(--ink); background: rgba(235, 235, 228, .55); align-self: center; }
+@media (prefers-reduced-motion: reduce) { .vcard__in { animation: none; } }
+@media (max-width: 980px) {
+  .ab-values__mark { top: 60%; }
+  .vstage { height: auto; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 20px; }
+  .vcard { position: relative; left: auto; top: auto; width: auto; cursor: default; touch-action: auto; }
+  .js .vcard.is-in { transform: rotate(calc(var(--rot) * .5)); }
+}
+@media (max-width: 560px) {
+  /* phone: the postcards become a swipeable deck */
+  .vstage {
+    display: flex; gap: 18px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none;
+    margin-inline: calc(var(--gutter) * -1); padding: 24px var(--gutter) 40px;
+  }
+  .vstage::-webkit-scrollbar { display: none; }
+  .vcard { flex: 0 0 80%; scroll-snap-align: center; }
+  .vcard__name { font-size: 40px; }
+}
 .ab-values__head { display: flex; align-items: flex-end; justify-content: space-between; gap: 48px; margin-bottom: 72px; }
 .ab-values__head > div { display: flex; flex-direction: column; gap: 16px; }
 .ab-values__lede { width: 440px; max-width: 100%; }
-.ab-values__grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 72px 20px; }
-.value {
-  height: 280px; padding: 28px; border-radius: 24px;
-  display: flex; flex-direction: column; justify-content: space-between;
-  background: var(--paper);
-  transition: box-shadow .35s var(--ease-out), transform .85s var(--ease-out), opacity .85s var(--ease-out) !important;
-}
-.value:hover { box-shadow: var(--neu-raised-sm); }
-.value__b { display: flex; flex-direction: column; gap: 10px; }
-.value__t { font: 400 20px/1.3 var(--f-sans); color: var(--ink); }
 
 /* ---------- See what's true ---------- */
 .ab-true { background: var(--wine); min-height: 640px; padding: 150px 0 120px; }
@@ -65,11 +118,6 @@
 
 /* ---------- Responsive ---------- */
 @media (max-width: 1200px) {
-  .ab-values__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
-  .value { height: auto; min-height: 200px; gap: 40px; box-shadow: var(--neu-raised-sm); }
-  .ab-profile__inner { gap: 56px; }
-  .ab-profile__book { width: 38%; height: auto; }
-}
 
 @media (max-width: 980px) {
   .ab-hero { min-height: 0; padding: 120px 0 0; display: flex; flex-direction: column; }
@@ -83,27 +131,6 @@
   .ab-stand__row .h3 { width: auto; font-size: 22px; }
 
   .ab-values__head { flex-direction: column; align-items: flex-start; gap: 24px; margin-bottom: 48px; }
-  .ab-values__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .value { height: auto; min-height: 200px; gap: 40px; padding: 24px; box-shadow: var(--neu-raised-sm); }
-
-  .ab-true { min-height: 0; padding: 96px 0 0; display: flex; flex-direction: column; }
-  .ab-true__bridge { order: 2; }
-  .ab-true__bridge { position: relative; height: auto; aspect-ratio: 1440 / 539; margin-top: 16px; }
-
-  .ab-profile__inner { flex-direction: column; align-items: flex-start; gap: 48px; }
-  .ab-profile__book { width: min(460px, 100%); }
-  .ab-profile__text { width: 100%; }
-
-  .ab-cta { padding: 24px 0 96px; }
-  .ab-cta__card { padding: 64px 32px; }
-}
 
 @media (max-width: 560px) {
   .ab-hero__title { font-size: clamp(40px, 12vw, 52px); }
-  .ab-values__grid { grid-template-columns: minmax(0, 1fr); gap: 16px; }
-  .value { min-height: 0; }
-  .ab-true .serif-xl, .ab-profile .serif-xl { font-size: 56px; }
-  .ab-cta__title { font-size: 44px; }
-  .ab-cta__title br { display: none; }
-  .ab-cta__card { padding: 56px 20px; }
-}
